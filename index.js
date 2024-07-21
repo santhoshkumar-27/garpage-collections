@@ -22,8 +22,17 @@ class Test {
  */
 
 // Allocation instrumentations on timeline, record specific time need for memory expansions
-document.addEventListener('click', e => {
-    const a = `${e.pageX}`
+// document.addEventListener('click', e => {
+//     const a = `${e.pageX}`
 
-    console.log('click', a)
-})
+//     console.log('click', a)
+// })
+
+// it doesn't automatically garpage collected when keys are not referenced in the applications
+const data = new Map()
+let index = 1;
+setInterval(() => {
+    data.set(index, `${index} - Index`);
+    index++; 
+}, 1);
+// this does the memory leaking
