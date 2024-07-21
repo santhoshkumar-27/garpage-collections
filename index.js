@@ -28,11 +28,23 @@ class Test {
 //     console.log('click', a)
 // })
 
-// it doesn't automatically garpage collected when keys are not referenced in the applications
-const data = new Map()
+// it doesn't automatically garpage collected when keys are not referenced in the applications, because it keys is primitive
+// this does the memory leaking
+// const data = new Map()
+// let index = 1;
+// setInterval(() => {
+//     data.set(index, `${index} - Index`);
+//     index++; 
+// }, 1);
+
+// it automatically garpage collected when keys are not referenced in the applications, because it keys is non-primitive
+const data = new WeakMap();
+const obj = {index: -1};
+data.set(obj, `${-1} - Index`);
+
 let index = 1;
 setInterval(() => {
-    data.set(index, `${index} - Index`);
+    const objt = {index}
+    data.set(objt, `${index} - Index`);
     index++; 
 }, 1);
-// this does the memory leaking
